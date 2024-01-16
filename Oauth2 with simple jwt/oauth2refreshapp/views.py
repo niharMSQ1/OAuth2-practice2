@@ -84,3 +84,7 @@ def login(request):
     },
     status = status.HTTP_200_OK
     )
+
+
+def callTheApi(request):
+    return
