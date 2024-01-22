@@ -168,7 +168,7 @@ def calling_dummy_api_in_another_project(request):
     post_data = {'data': num}
     post_data_json = json.dumps(post_data)
 
-    calling_inbuilt_3rdparty_api = requests.post("http://127.0.0.1:8001/api/calling_third_party/", headers=headers, data=post_data_json)
+    calling_inbuilt_3rdparty_api = requests.post("http://127.0.0.1:8001/api/call-3rd-party/", headers=headers, data=post_data_json)
 
     return JsonResponse(calling_inbuilt_3rdparty_api.json())
 
