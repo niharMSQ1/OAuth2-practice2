@@ -1,4 +1,4 @@
-# Django OAuth2 and Simple JWT Integration
+# Django OAuth2 and Simple JWT Integration for the Resource project, Client project just run separatly normally
 
 This project demonstrates the integration of OAuth2 and Simple JWT for authentication in a Django application. It includes user registration, login, and API endpoint for generating and updating access tokens.
 
@@ -42,7 +42,7 @@ This project demonstrates the integration of OAuth2 and Simple JWT for authentic
     python manage.py runserver
     ```
 
-7. Visit [http://127.0.0.1:8000/admin/](http://127.0.0.1:8000/admin/) and log in with the superuser credentials.
+7. Visit [http://127.0.0.1:8001/admin/](http://127.0.0.1:8001/admin/) and log in with the superuser credentials.
 
 ## Endpoints
 
