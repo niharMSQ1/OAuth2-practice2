@@ -53,11 +53,13 @@ def user_login(request):
             headers = {
                 'Authorization': f'Bearer {str(refresh.access_token)}', # passing access token in headers to call generate token endpoint
             }
-            create_oauth_refresh_token = requests.post("http://127.0.0.1:8001/api/generate_token_endpoint/", headers=headers) # this api is in line no 78(def generate_token_endpoint(request):)
+            create_oauth_refresh_token = requests.post("http://127.0.0.1:8001/api/generate-token/", headers=headers) # this api is in line no 78(def generate_token_endpoint(request):)
 
             return JsonResponse({
-                "refresh-token": str(refresh),
-                "access-token": str(refresh.access_token)
+                "jwt_refresh_token": str(refresh),
+                "jwt_access_token": str(refresh.access_token),
+                "oauth_refresh_token" : (create_oauth_refresh_token.json())['refresh_token'],
+                "oauth_access_token" : (create_oauth_refresh_token.json())['access_token'],
             })
         else:
             return JsonResponse({'message': 'Login unsuccessful.'})
