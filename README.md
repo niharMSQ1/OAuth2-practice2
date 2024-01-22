@@ -7,7 +7,7 @@ This project demonstrates the integration of OAuth2 and Simple JWT for authentic
 1. Clone the repository:
 
     ```bash
-    git clone https://github.com/your-username/your-repository.git
+    git clone https://github.com/niharMSQ1/OAuth2-practice2.git
     cd your-repository
     ```
 
@@ -27,13 +27,13 @@ This project demonstrates the integration of OAuth2 and Simple JWT for authentic
 4. Apply migrations:
 
     ```bash
-    python manage.py migrate
+    no need since the database is hosted on a cloud server
     ```
 
 5. Create a superuser (for Django admin):
 
     ```bash
-    python manage.py createsuperuser
+    I will share the username and password personally
     ```
 
 6. Run the development server:
