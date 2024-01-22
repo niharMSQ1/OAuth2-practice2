@@ -33,7 +33,8 @@ This project demonstrates the integration of OAuth2 and Simple JWT for authentic
 5. Create a superuser (for Django admin):
 
     ```bash
-    I will share the username and password personally
+    I will share the username and password personally.
+    I will also share .env file
     ```
 
 6. Run the development server:
