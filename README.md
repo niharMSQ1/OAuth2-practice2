@@ -70,4 +70,7 @@ This project demonstrates the integration of OAuth2 and Simple JWT for authentic
 - OAuth2 Provider
 - Simple JWT
 
+## Postman Collection
+
+- https://drive.google.com/file/d/1s5Fe8h4_BKv9dM0_PnxVch1hGMEvWpHh/view?usp=sharing
 
