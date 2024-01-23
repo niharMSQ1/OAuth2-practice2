@@ -156,6 +156,7 @@ OAUTH2_PROVIDER = {
     'REFRESH_TOKEN_EXPIRE_SECONDS': 20,  # Refresh token expiration set to 20 seconds
 }
 
+
 # OAuth client credentials
 CLIENT_ID = config('client_id')  # Replace 'config' with your actual configuration method (e.g., 'os.environ.get' or 'django.conf.settings')
 CLIENT_SECRET = config('client_secret')  # Replace 'config' with your actual configuration method

@@ -87,7 +87,7 @@ def generate_token_endpoint(request):
             AccessToken.objects.filter(user=user, application=application).delete() # deleting if I am calling the current api separately, otherwise this line is not required
             RefreshToken.objects.filter(user=user, application=application).delete() # deleting if I am calling the current api separately, otherwise this line is not required
 
-            expires = timezone.now() + timezone.timedelta(seconds=3600)
+            expires = timezone.now() + timezone.timedelta(seconds=(settings.OAUTH2_PROVIDER)['ACCESS_TOKEN_EXPIRE_SECONDS'])
             expires_iso = expires.isoformat()
 
             new_uuid = uuid.uuid4()
@@ -133,7 +133,8 @@ def update_access_token_from_refresh(request):
 
         access_token_obj = AccessToken.objects.get(pk=(RefreshToken.objects.get(token=refresh_token)).access_token_id) # queyring the oauth access token object from oauth refresh token
         new_access_token = generate_base64_string()  # creating new oauth access token which will update the above oauth access token
-        expires_in = timezone.now() + timezone.timedelta(seconds=3600)
+        expires_in = timezone.now() + timezone.timedelta(seconds=(settings.OAUTH2_PROVIDER)['ACCESS_TOKEN_EXPIRE_SECONDS'])
+        # expires_in = timezone.now() + timezone.timedelta(seconds=300)
         access_token_obj.token = new_access_token
         expires_iso = expires_in.isoformat() # assinging the new oauth access token
         access_token_obj.expires = expires_iso
@@ -159,18 +160,46 @@ def calling_dummy_api_in_another_project(request):
     url = (json.loads(request.body)).get('url')
     num = (json.loads(request.body)).get('data')
     access_token = (AccessToken.objects.get(user_id=request.user.id)).token
-    
-    headers = {
-        'Authorization': f'Bearer {access_token}',
+
+    if timezone.now() > (AccessToken.objects.get(user_id=request.user.id)).expires:
+        headers = {
+        'Authorization': f'Bearer {str(request.auth)}',
         'Content-Type': 'application/json'
-    }
+        }
+        # refresh_token = RefreshToken.objects.get(user_id=request.user.id).token
 
-    post_data = {'data': num}
-    post_data_json = json.dumps(post_data)
+        # post_data = {'data': refresh_token}
+        # post_data_json = json.dumps(post_data)
 
-    calling_inbuilt_3rdparty_api = requests.post("http://127.0.0.1:8001/api/call-3rd-party/", headers=headers, data=post_data_json)
+        # calling_update_access_token_api = requests.post("http://127.0.0.1:8001/api/update-access-token/", headers=headers, data=post_data_json)
 
-    return JsonResponse(calling_inbuilt_3rdparty_api.json())
+        calling_update_access_token_api = requests.post("http://127.0.0.1:8001/api/update-access-token/", headers=headers)
+        newly_generated_access_token = (calling_update_access_token_api.json())['token']
+
+        headers = {
+            'Authorization': f'Bearer {newly_generated_access_token}',
+            'Content-Type': 'application/json'
+        }
+
+        post_data = {'data': num}
+        post_data_json = json.dumps(post_data)
+
+        calling_inbuilt_3rdparty_api = requests.post("http://127.0.0.1:8001/api/call-3rd-party/", headers=headers, data=post_data_json)
+
+        return JsonResponse(calling_inbuilt_3rdparty_api.json())
+    
+    else:
+        headers = {
+            'Authorization': f'Bearer {access_token}',
+            'Content-Type': 'application/json'
+        }
+
+        post_data = {'data': num}
+        post_data_json = json.dumps(post_data)
+
+        calling_inbuilt_3rdparty_api = requests.post("http://127.0.0.1:8001/api/call-3rd-party/", headers=headers, data=post_data_json)
+
+        return JsonResponse(calling_inbuilt_3rdparty_api.json())
 
 @csrf_exempt
 @protected_resource()
