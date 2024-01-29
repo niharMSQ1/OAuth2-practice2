@@ -146,14 +146,14 @@ REST_FRAMEWORK = {
 
 # Simple JWT settings for token lifetimes
 SIMPLE_JWT = {
-    'ACCESS_TOKEN_LIFETIME': datetime.timedelta(minutes=360),  # Access token lifetime set to 360 minutes (6 hours)
-    'REFRESH_TOKEN_LIFETIME': datetime.timedelta(days=7),  # Refresh token lifetime set to 7 days
+    'ACCESS_TOKEN_LIFETIME': datetime.timedelta(days = 7),  # Access token lifetime set to 360 minutes (6 hours)
+    'REFRESH_TOKEN_LIFETIME': datetime.timedelta(days = 30),  # Refresh token lifetime set to 7 days
 }
 
 # OAuth2 Provider settings for token expiration
 OAUTH2_PROVIDER = {
-    'ACCESS_TOKEN_EXPIRE_SECONDS': 10,  # Access token expiration set to 10 seconds
-    'REFRESH_TOKEN_EXPIRE_SECONDS': 20,  # Refresh token expiration set to 20 seconds
+    'ACCESS_TOKEN_EXPIRE_SECONDS': 7200,  # Access token expiration set to 10 seconds
+    'REFRESH_TOKEN_EXPIRE_SECONDS': 14400,  # Refresh token expiration set to 20 seconds
 }
 
 
